@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myapplication/myapplication.iml" filepath="$PROJECT_DIR$/myapplication/myapplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0171simplecalculator/p0171simplecalculator.iml" filepath="$PROJECT_DIR$/p0171simplecalculator/p0171simplecalculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0181simpleanimation/p0181simpleanimation.iml" filepath="$PROJECT_DIR$/p0181simpleanimation/p0181simpleanimation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0191twoactivity/p0191twoactivity.iml" filepath="$PROJECT_DIR$/p0191twoactivity/p0191twoactivity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0201oneactivitystate/p0201oneactivitystate.iml" filepath="$PROJECT_DIR$/p0201oneactivitystate/p0201oneactivitystate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0211twoactivitystate/p0211twoactivitystate.iml" filepath="$PROJECT_DIR$/p0211twoactivitystate/p0211twoactivitystate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0261intentfilter/p0261intentfilter.iml" filepath="$PROJECT_DIR$/p0261intentfilter/p0261intentfilter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0271getintentaction/p0271getintentaction.iml" filepath="$PROJECT_DIR$/p0271getintentaction/p0271getintentaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0281intentextras/p0281intentextras.iml" filepath="$PROJECT_DIR$/p0281intentextras/p0281intentextras.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0291simpleactivityresult/p0291simpleactivityresult.iml" filepath="$PROJECT_DIR$/p0291simpleactivityresult/p0291simpleactivityresult.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0301activityresult/p0301activityresult.iml" filepath="$PROJECT_DIR$/p0301activityresult/p0301activityresult.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0311simpleintents/p0311simpleintents.iml" filepath="$PROJECT_DIR$/p0311simpleintents/p0311simpleintents.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0321simplebrowser/p0321simplebrowser.iml" filepath="$PROJECT_DIR$/p0321simplebrowser/p0321simplebrowser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0331sharedpreferences/p0331sharedpreferences.iml" filepath="$PROJECT_DIR$/p0331sharedpreferences/p0331sharedpreferences.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0341simplesqlite/p0341simplesqlite.iml" filepath="$PROJECT_DIR$/p0341simplesqlite/p0341simplesqlite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0361sqlitequery/p0361sqlitequery.iml" filepath="$PROJECT_DIR$/p0361sqlitequery/p0361sqlitequery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0371sqliteinnerjoin/p0371sqliteinnerjoin.iml" filepath="$PROJECT_DIR$/p0371sqliteinnerjoin/p0371sqliteinnerjoin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0381sqlitetransaction/p0381sqlitetransaction.iml" filepath="$PROJECT_DIR$/p0381sqlitetransaction/p0381sqlitetransaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0391sqliteonupgradedb/p0391sqliteonupgradedb.iml" filepath="$PROJECT_DIR$/p0391sqliteonupgradedb/p0391sqliteonupgradedb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0401layoutinflater/p0401layoutinflater.iml" filepath="$PROJECT_DIR$/p0401layoutinflater/p0401layoutinflater.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0411layoutinflaterlist/p0411layoutinflaterlist.iml" filepath="$PROJECT_DIR$/p0411layoutinflaterlist/p0411layoutinflaterlist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0421simplelist/p0421simplelist.iml" filepath="$PROJECT_DIR$/p0421simplelist/p0421simplelist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p0431simplelistchoice/p0431simplelistchoice.iml" filepath="$PROJECT_DIR$/p0431simplelistchoice/p0431simplelistchoice.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.10" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/myapplication" />
+            <option value="$PROJECT_DIR$/p0171simplecalculator" />
+            <option value="$PROJECT_DIR$/p0181simpleanimation" />
+            <option value="$PROJECT_DIR$/p0191twoactivity" />
+            <option value="$PROJECT_DIR$/p0201oneactivitystate" />
+            <option value="$PROJECT_DIR$/p0211twoactivitystate" />
+            <option value="$PROJECT_DIR$/p0261intentfilter" />
+            <option value="$PROJECT_DIR$/p0271getintentaction" />
+            <option value="$PROJECT_DIR$/p0281intentextras" />
+            <option value="$PROJECT_DIR$/p0291simpleactivityresult" />
+            <option value="$PROJECT_DIR$/p0301activityresult" />
+            <option value="$PROJECT_DIR$/p0311simpleintents" />
+            <option value="$PROJECT_DIR$/p0321simplebrowser" />
+            <option value="$PROJECT_DIR$/p0331sharedpreferences" />
+            <option value="$PROJECT_DIR$/p0341simplesqlite" />
+            <option value="$PROJECT_DIR$/p0361sqlitequery" />
+            <option value="$PROJECT_DIR$/p0371sqliteinnerjoin" />
+            <option value="$PROJECT_DIR$/p0381sqlitetransaction" />
+            <option value="$PROJECT_DIR$/p0391sqliteonupgradedb" />
+            <option value="$PROJECT_DIR$/p0401layoutinflater" />
+            <option value="$PROJECT_DIR$/p0411layoutinflaterlist" />
+            <option value="$PROJECT_DIR$/p0421simplelist" />
+            <option value="$PROJECT_DIR$/p0431simplelistchoice" />
+          </set>
+        </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/myapplication" />
+            <option value="$PROJECT_DIR$/p0171simplecalculator" />
+            <option value="$PROJECT_DIR$/p0181simpleanimation" />
+            <option value="$PROJECT_DIR$/p0191twoactivity" />
+            <option value="$PROJECT_DIR$/p0201oneactivitystate" />
+            <option value="$PROJECT_DIR$/p0211twoactivitystate" />
+            <option value="$PROJECT_DIR$/p0261intentfilter" />
+            <option value="$PROJECT_DIR$/p0271getintentaction" />
+            <option value="$PROJECT_DIR$/p0281intentextras" />
+            <option value="$PROJECT_DIR$/p0291simpleactivityresult" />
+            <option value="$PROJECT_DIR$/p0301activityresult" />
+            <option value="$PROJECT_DIR$/p0311simpleintents" />
+            <option value="$PROJECT_DIR$/p0321simplebrowser" />
+            <option value="$PROJECT_DIR$/p0331sharedpreferences" />
+            <option value="$PROJECT_DIR$/p0341simplesqlite" />
+            <option value="$PROJECT_DIR$/p0361sqlitequery" />
+            <option value="$PROJECT_DIR$/p0371sqliteinnerjoin" />
+            <option value="$PROJECT_DIR$/p0381sqlitetransaction" />
+            <option value="$PROJECT_DIR$/p0391sqliteonupgradedb" />
+            <option value="$PROJECT_DIR$/p0401layoutinflater" />
+            <option value="$PROJECT_DIR$/p0411layoutinflaterlist" />
+            <option value="$PROJECT_DIR$/p0421simplelist" />
+            <option value="$PROJECT_DIR$/p0431simplelistchoice" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

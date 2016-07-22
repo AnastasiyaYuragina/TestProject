@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "883713767639",
+    "project_id": "my-application-b70a0"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883713767639:android:6abfcddb5a34d25c",
+        "android_client_info": {
+          "package_name": "com.anastasiyayuragina.startandroidprojects"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK1ohlEUh8llC-StwfxkPHmhJD_AQrTTM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-80676578-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883713767639:android:6e4006d678a37a7b",
+        "android_client_info": {
+          "package_name": "com.anastasiyayuragina.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK1ohlEUh8llC-StwfxkPHmhJD_AQrTTM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-80676578-2"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

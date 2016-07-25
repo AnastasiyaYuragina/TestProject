@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,12 +22,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-///**
-// * A fragment representing a list of Items.
-// * <p/>
-// * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
-// * interface.
-// */
+/**
+ * A fragment representing a list of Items.
+ * <p/>
+ * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * interface.
+ */
 public class CountryFragment extends Fragment  {
 
     // TODO: Customize parameter argument names
@@ -52,7 +51,6 @@ public class CountryFragment extends Fragment  {
     }
 
     // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static CountryFragment newInstance(int columnCount) {
         CountryFragment fragment = new CountryFragment();
         Bundle args = new Bundle();

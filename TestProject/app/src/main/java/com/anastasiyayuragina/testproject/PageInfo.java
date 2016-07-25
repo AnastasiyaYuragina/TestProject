@@ -27,6 +27,7 @@ public class PageInfo {
     private String perPage;
     @JsonProperty("total")
     private Integer total;
+    private Country country;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 

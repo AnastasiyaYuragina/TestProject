@@ -7,9 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +75,30 @@ public class CountryFragment extends Fragment  {
         }
 
         new Parse().execute();
+
+
+//        CountryFragment obj = new CountryFragment();
+//        obj.run();
+
     }
+
+//    private void run() {
+//        final ObjectMapper mapper = new ObjectMapper();
+//
+//        new Thread(new Runnable() {
+//            public void run() {
+//                try {
+//                    PageInfo info = mapper.readValue(new URL("http://api.worldbank.org/country?per_page=10&format=json&page=1"), PageInfo.class);
+//
+//                    Log.d(TAG, info.getPages().toString());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -158,25 +188,61 @@ public class CountryFragment extends Fragment  {
         protected void onPostExecute(java.lang.String s) {
             super.onPostExecute(s);
 
-            JSONArray jsonArray = null;
+//            Log.d(TAG, s);
+
+            ObjectMapper mapper = new ObjectMapper();
+            JSONArray jsonArray;
+            Country country;
 
             try {
                 jsonArray = new JSONArray(s);
                 JSONArray countries = jsonArray.getJSONArray(COUNTRIES_ARRAY);
+                JSONObject countryObj;
 
                 for (int i = 0; i < countries.length(); i++) {
-                    JSONObject country = countries.getJSONObject(i);
-                    JSONObject region = country.getJSONObject("region");
+                    countryObj = countries.getJSONObject(i);
+
+                    country = mapper.readValue(countryObj.toString(), Country.class);
+
                     CountryViewModel viewModel = new CountryViewModel();
 
-                    viewModel.name = country.getString("name");
-                    viewModel.region = region.getString("value");
+                    viewModel.name = country.getName();
+                    viewModel.region = country.getRegion().getValue();
 
                     countryList.add(viewModel);
+                    Log.d(TAG, country.toString());
+
                 }
-            }catch (JSONException e) {
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (JsonParseException e) {
+                e.printStackTrace();
+            } catch (JsonMappingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
+//            JSONArray jsonArray = null;
+//
+//            try {
+//                jsonArray = new JSONArray(s);
+//                JSONArray countries = jsonArray.getJSONArray(COUNTRIES_ARRAY);
+//
+//                for (int i = 0; i < countries.length(); i++) {
+//                    JSONObject country = countries.getJSONObject(i);
+//                    JSONObject region = country.getJSONObject("region");
+//                    CountryViewModel viewModel = new CountryViewModel();
+//
+//                    viewModel.name = country.getString("name");
+//                    viewModel.region = region.getString("value");
+//
+//                    countryList.add(viewModel);
+//                }
+//            }catch (JSONException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 }

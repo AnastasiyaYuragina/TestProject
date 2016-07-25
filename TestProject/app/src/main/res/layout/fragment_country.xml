@@ -7,6 +7,7 @@
     <TextView
         android:id="@+id/county_name"
         android:layout_width="wrap_content"
+        android:textColor="@android:color/black"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"/>
 
@@ -14,5 +15,6 @@
         android:id="@+id/country_region"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
         android:layout_margin="@dimen/text_margin"/>
 </LinearLayout>

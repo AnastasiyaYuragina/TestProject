@@ -11,11 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +46,7 @@ public class CountryFragment extends Fragment  {
     private OnListFragmentInteractionListener mListener;
 
     private List<CountryViewModel> countryList = new ArrayList<>();
+    private MyCountryRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -75,6 +73,8 @@ public class CountryFragment extends Fragment  {
         }
 
         new Parse().execute();
+
+        adapter = new MyCountryRecyclerViewAdapter(countryList, mListener);
 
 
 //        CountryFragment obj = new CountryFragment();
@@ -113,21 +113,23 @@ public class CountryFragment extends Fragment  {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(countryList, mListener));
+//            recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(countryList, mListener));
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }
         return view;
     }
 
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnListFragmentInteractionListener) {
+            mListener = (OnListFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {
@@ -210,6 +212,7 @@ public class CountryFragment extends Fragment  {
                     viewModel.region = country.getRegion().getValue();
 
                     countryList.add(viewModel);
+                    adapter.notifyDataSetChanged();
                     Log.d(TAG, country.toString());
 
                 }

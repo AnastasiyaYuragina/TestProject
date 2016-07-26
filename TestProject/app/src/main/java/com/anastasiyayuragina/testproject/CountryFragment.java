@@ -76,29 +76,7 @@ public class CountryFragment extends Fragment  {
 
         adapter = new MyCountryRecyclerViewAdapter(countryList, mListener);
 
-
-//        CountryFragment obj = new CountryFragment();
-//        obj.run();
-
     }
-
-//    private void run() {
-//        final ObjectMapper mapper = new ObjectMapper();
-//
-//        new Thread(new Runnable() {
-//            public void run() {
-//                try {
-//                    PageInfo info = mapper.readValue(new URL("http://api.worldbank.org/country?per_page=10&format=json&page=1"), PageInfo.class);
-//
-//                    Log.d(TAG, info.getPages().toString());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-//
-//
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

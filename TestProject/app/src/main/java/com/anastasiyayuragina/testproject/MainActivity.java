@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener {
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
 
     @Override
     public void onListFragmentInteraction(CountryViewModel item) {
-
+        Toast.makeText(this, "Click item:" + item.name + " " + item.region, Toast.LENGTH_SHORT).show();
     }
 
     /**

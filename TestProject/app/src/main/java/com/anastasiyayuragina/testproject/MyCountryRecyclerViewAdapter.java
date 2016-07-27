@@ -5,17 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountryRecyclerViewAdapter.ViewHolder> {
 
-    private final List<CountryViewModel> mValues;
+    private final List<Country> mValues = new ArrayList<>();
     private final CountryFragment.OnListFragmentInteractionListener mListener;
 
-    public MyCountryRecyclerViewAdapter(List<CountryViewModel> items, CountryFragment.OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyCountryRecyclerViewAdapter(CountryFragment.OnListFragmentInteractionListener listener) {
+
         mListener = listener;
+    }
+
+    public void addItems(List<Country> items) {
+        mValues.addAll(items);
+        notifyDataSetChanged();
     }
 
 
@@ -27,10 +32,10 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        CountryViewModel viewModel = mValues.get(position);
+        Country viewModel = mValues.get(position);
         holder.mItem = viewModel;
-        holder.mIdView.setText("Country: " + viewModel.name);
-        holder.mContentView.setText("Region: " + viewModel.region);
+        holder.mIdView.setText("Country: " + viewModel.getName());
+        holder.mContentView.setText("Region: " + viewModel.getRegion().getValue());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +58,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public CountryViewModel mItem;
+        public Country mItem;
 
         public ViewHolder(View view) {
             super(view);

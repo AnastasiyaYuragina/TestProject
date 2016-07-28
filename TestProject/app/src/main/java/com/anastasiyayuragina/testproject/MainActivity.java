@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
 
     @Override
     public void onListFragmentInteraction(Country item) {
-        Toast.makeText(this, "Click item:" + item.getName() + " " + item.getRegion(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Click item:" + item.getName() + " " + item.getRegion().getValue(), Toast.LENGTH_SHORT).show();
     }
 
     /**

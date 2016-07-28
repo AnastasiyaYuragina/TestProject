@@ -1,23 +1,24 @@
 package com.anastasiyayuragina.testproject;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
+
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * A fragment representing a list of Items.
@@ -33,7 +34,6 @@ public class CountryFragment extends Fragment  {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private Item item;
     private MyCountryRecyclerViewAdapter adapter;
 
     /**
@@ -60,7 +60,31 @@ public class CountryFragment extends Fragment  {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        new Parse().execute();
+        Map<String, String> urlParams = new ArrayMap<>();
+        urlParams.put("per_page", "10");
+        urlParams.put("format", "json");
+        urlParams.put("page", "1");
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://api.worldbank.org/")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+        CountriesAPIService service = retrofit.create(CountriesAPIService.class);
+
+        Call<Item> itemCall = service.loadItem(urlParams);
+        itemCall.enqueue(new Callback<Item>() {
+            @Override
+            public void onResponse(Call<Item> call, Response<Item> response) {
+                Item item = response.body();
+                Log.d("MyLogs", "onResponse: " + item.toString());
+                adapter.addItems(item.countryList);
+            }
+
+            @Override
+            public void onFailure(Call<Item> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -82,7 +106,6 @@ public class CountryFragment extends Fragment  {
         return view;
     }
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -99,7 +122,6 @@ public class CountryFragment extends Fragment  {
         mListener = null;
     }
 
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -113,48 +135,5 @@ public class CountryFragment extends Fragment  {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Country item);
-    }
-
-    private class Parse extends AsyncTask<Void, Void, List<Country>> {
-
-        HttpURLConnection httpURLConnection = null;
-        BufferedReader reader = null;
-        java.lang.String resultJson = "";
-        ObjectMapper mapper = new ObjectMapper();
-
-        @Override
-        protected List<Country> doInBackground(Void... voids) {
-
-            try {
-                URL url = new URL("http://api.worldbank.org/country?per_page=10&format=json&page=1");
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("GET");
-                httpURLConnection.connect();
-
-                InputStream inputStream = httpURLConnection.getInputStream();
-                StringBuilder buffer = new StringBuilder();
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                java.lang.String line;
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line);
-                }
-
-                resultJson = buffer.toString();
-                item = mapper.readValue(resultJson, Item.class);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return item.countryList;
-        }
-
-        @Override
-        protected void onPostExecute(List<Country> s) {
-            super.onPostExecute(s);
-
-            adapter.addItems(s);
-        }
     }
 }

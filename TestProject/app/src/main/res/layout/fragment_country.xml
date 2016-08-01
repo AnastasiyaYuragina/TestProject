@@ -9,12 +9,14 @@
         android:layout_width="wrap_content"
         android:textColor="@android:color/black"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"/>
+        android:layout_margin="@dimen/text_margin"
+        android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/country_region"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:layout_margin="@dimen/text_margin"/>
+        android:layout_margin="@dimen/text_margin"
+        android:layout_weight="1"/>
 </LinearLayout>

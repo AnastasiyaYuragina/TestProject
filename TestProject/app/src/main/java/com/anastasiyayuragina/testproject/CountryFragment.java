@@ -60,18 +60,10 @@ public class CountryFragment extends Fragment  {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        Map<String, String> urlParams = new ArrayMap<>();
-        urlParams.put("per_page", "10");
-        urlParams.put("format", "json");
-        urlParams.put("page", "1");
+        MySingleton ms = MySingleton.getInstance();
+        CountriesAPIService service = ms.getRetrofit().create(CountriesAPIService.class);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.worldbank.org/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
-        CountriesAPIService service = retrofit.create(CountriesAPIService.class);
-
-        Call<Item> itemCall = service.loadItem(urlParams);
+        Call<Item> itemCall = service.loadItem(pageParam("1"));
         itemCall.enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
@@ -85,6 +77,7 @@ public class CountryFragment extends Fragment  {
 
             }
         });
+
     }
 
     @Override
@@ -135,5 +128,14 @@ public class CountryFragment extends Fragment  {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Country item);
+    }
+
+    private Map<String, String> pageParam(String page) {
+        Map<String, String> urlParams = new ArrayMap<>();
+        urlParams.put("per_page", "10");
+        urlParams.put("format", "json");
+        urlParams.put("page", page);
+
+        return urlParams;
     }
 }

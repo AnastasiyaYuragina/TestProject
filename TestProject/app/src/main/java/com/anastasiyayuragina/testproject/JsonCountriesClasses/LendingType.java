@@ -1,5 +1,5 @@
 
-package com.anastasiyayuragina.testproject;
+package com.anastasiyayuragina.testproject.JsonCountriesClasses;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,24 +1,21 @@
-package com.anastasiyayuragina.testproject;
+package com.anastasiyayuragina.testproject.screen.country_list;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Map;
+import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
+import com.anastasiyayuragina.testproject.MyCountryRecyclerViewAdapter;
+import com.anastasiyayuragina.testproject.R;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -26,7 +23,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class CountryFragment extends Fragment  {
+public class CountryFragment extends Fragment implements CountriesMvp.View {
 
     // TODO: Customize parameter argument names
     private static final java.lang.String ARG_COLUMN_COUNT = "column-count";
@@ -35,6 +32,7 @@ public class CountryFragment extends Fragment  {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private MyCountryRecyclerViewAdapter adapter;
+    private CountriesMvp.Presenter presenter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -59,30 +57,12 @@ public class CountryFragment extends Fragment  {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
-        MySingleton ms = MySingleton.getInstance();
-        CountriesAPIService service = ms.getRetrofit().create(CountriesAPIService.class);
-
-        Call<Item> itemCall = service.loadItem(pageParam("1"));
-        itemCall.enqueue(new Callback<Item>() {
-            @Override
-            public void onResponse(Call<Item> call, Response<Item> response) {
-                Item item = response.body();
-                Log.d("MyLogs", "onResponse: " + item.toString());
-                adapter.addItems(item.countryList);
-            }
-
-            @Override
-            public void onFailure(Call<Item> call, Throwable t) {
-
-            }
-        });
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_country_list, container, false);
+
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -95,7 +75,12 @@ public class CountryFragment extends Fragment  {
             }
             adapter = new MyCountryRecyclerViewAdapter(mListener);
             recyclerView.setAdapter(adapter);
+
+            CountriesMvp.Model model = new CountriesModel();
+            presenter = new CountriesPresenter(model, this);
+            presenter.loadData();
         }
+
         return view;
     }
 
@@ -115,6 +100,17 @@ public class CountryFragment extends Fragment  {
         mListener = null;
     }
 
+    @Override
+    public void setData(List<Country> countryList) {
+        adapter.addItems(countryList);
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -128,14 +124,5 @@ public class CountryFragment extends Fragment  {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Country item);
-    }
-
-    private Map<String, String> pageParam(String page) {
-        Map<String, String> urlParams = new ArrayMap<>();
-        urlParams.put("per_page", "10");
-        urlParams.put("format", "json");
-        urlParams.put("page", page);
-
-        return urlParams;
     }
 }

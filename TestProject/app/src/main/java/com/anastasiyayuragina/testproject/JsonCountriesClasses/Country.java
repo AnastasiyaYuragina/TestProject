@@ -1,8 +1,13 @@
 
-package com.anastasiyayuragina.testproject;
+package com.anastasiyayuragina.testproject.JsonCountriesClasses;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.anastasiyayuragina.testproject.JsonCountriesClasses.Adminregion;
+import com.anastasiyayuragina.testproject.JsonCountriesClasses.IncomeLevel;
+import com.anastasiyayuragina.testproject.JsonCountriesClasses.LendingType;
+import com.anastasiyayuragina.testproject.JsonCountriesClasses.Region;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;

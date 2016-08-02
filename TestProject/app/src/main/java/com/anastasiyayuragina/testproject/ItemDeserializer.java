@@ -1,5 +1,7 @@
 package com.anastasiyayuragina.testproject;
 
+import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
+import com.anastasiyayuragina.testproject.JsonCountriesClasses.PageInfo;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.TreeNode;

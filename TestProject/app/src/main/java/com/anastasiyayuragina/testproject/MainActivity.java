@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
+import com.anastasiyayuragina.testproject.screen.country_list.CountryFragment;
+
 public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener {
 
     /**

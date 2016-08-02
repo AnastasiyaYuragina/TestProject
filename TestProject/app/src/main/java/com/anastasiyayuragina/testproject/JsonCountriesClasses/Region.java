@@ -1,4 +1,5 @@
-package com.anastasiyayuragina.testproject;
+
+package com.anastasiyayuragina.testproject.JsonCountriesClasses;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "value"
 })
-public class Adminregion {
+public class Region {
 
     @JsonProperty("id")
     private String id;

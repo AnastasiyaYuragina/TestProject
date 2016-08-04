@@ -11,6 +11,8 @@ public interface CountriesMvp {
     interface Presenter{
         void loadData();
         void onDestroy();
+
+        boolean isDataLoaded();
     }
     interface View{
         void setData(List<Country> countryList);

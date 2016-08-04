@@ -1,20 +1,21 @@
 package com.anastasiyayuragina.testproject.screen.country_list;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anastasiyayuragina.testproject.EndlessRecyclerOnScrollListener;
 import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
 import com.anastasiyayuragina.testproject.MyCountryRecyclerViewAdapter;
 import com.anastasiyayuragina.testproject.R;
-
 import java.util.List;
 
 /**
@@ -27,6 +28,7 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
 
     // TODO: Customize parameter argument names
     private static final java.lang.String ARG_COLUMN_COUNT = "column-count";
+    private static final String TAG = "MyLogs";
 
     // TODO: Customize parameters
     private int mColumnCount = 1;
@@ -63,10 +65,10 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_country_list, container, false);
 
-
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
+
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -75,10 +77,16 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
             }
             adapter = new MyCountryRecyclerViewAdapter(mListener);
             recyclerView.setAdapter(adapter);
-
-            CountriesMvp.Model model = new CountriesModel();
+            final CountriesMvp.Model model = new CountriesModel();
             presenter = new CountriesPresenter(model, this);
             presenter.loadData();
+
+            recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener((LinearLayoutManager) recyclerView.getLayoutManager()) {
+                @Override
+                public void onLoadMore(int current_page) {
+                    presenter.loadData();
+                }
+            });
         }
 
         return view;

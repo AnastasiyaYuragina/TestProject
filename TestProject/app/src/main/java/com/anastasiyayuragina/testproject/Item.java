@@ -11,6 +11,9 @@ import java.util.List;
  */
 @JsonDeserialize (using = ItemDeserializer.class)
 public class Item {
+    private PageInfo pageInfo;
+    private List<Country> countryList;
+
     public PageInfo getPageInfo() {
         return pageInfo;
     }
@@ -26,7 +29,4 @@ public class Item {
     public void setCountryList(List<Country> countryList) {
         this.countryList = countryList;
     }
-
-    PageInfo pageInfo;
-    List<Country> countryList;
 }

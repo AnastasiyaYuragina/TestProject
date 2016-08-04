@@ -29,8 +29,8 @@ public class ItemDeserializer extends JsonDeserializer<Item>{
         ObjectMapper mapper = new ObjectMapper();
         TreeNode treeNode = p.readValueAsTree();
 
-        item.pageInfo = mapper.readerFor(new TypeReference<PageInfo>() {}).readValue((JsonNode) treeNode.get(PAGE_INFO));
-        item.countryList = mapper.readerFor(new TypeReference<List<Country>>(){}).readValue((JsonNode) treeNode.get(COUNTRIES_ARRAY));
+        item.setPageInfo((PageInfo) mapper.readerFor(new TypeReference<PageInfo>() {}).readValue((JsonNode) treeNode.get(PAGE_INFO)));
+        item.setCountryList((List<Country>) mapper.readerFor(new TypeReference<List<Country>>(){}).readValue((JsonNode) treeNode.get(COUNTRIES_ARRAY)));
 
         return item;
 

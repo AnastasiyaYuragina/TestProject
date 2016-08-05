@@ -32,6 +32,11 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Country viewModel = mValues.get(position);
         holder.mItem = viewModel;

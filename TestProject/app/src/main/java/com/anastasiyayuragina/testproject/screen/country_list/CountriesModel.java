@@ -2,7 +2,6 @@ package com.anastasiyayuragina.testproject.screen.country_list;
 
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
-
 import com.anastasiyayuragina.testproject.CountriesAPIService;
 import com.anastasiyayuragina.testproject.Item;
 import com.anastasiyayuragina.testproject.MySingleton;

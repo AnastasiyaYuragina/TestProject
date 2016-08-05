@@ -1,5 +1,6 @@
 package com.anastasiyayuragina.testproject;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
 import com.anastasiyayuragina.testproject.screen.country_list.CountryFragment;
+import com.anastasiyayuragina.testproject.screen.map.MapFragment;
 
 public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener {
 
@@ -36,15 +38,53 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         setContentView(R.layout.activity_main);
 
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+//        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+//        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        replaceFragment(FragmentType.COUNTRY_LIST);
 
         getApplication();
     }
 
+    enum FragmentType{
+        COUNTRY_LIST,
+        MAP
+    }
+    void replaceFragment(FragmentType type){
+
+        Fragment fragment;
+
+        FragmentManager manager = getSupportFragmentManager();
+
+        fragment = manager.findFragmentByTag(type.name());
+
+        if(fragment == null){
+            fragment = createFragment(type);
+        }
+
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.container, fragment, type.name()).addToBackStack(null).commit();
+
+
+    }
+
+    private Fragment createFragment(FragmentType type) {
+        switch (type){
+            case COUNTRY_LIST:
+                return CountryFragment.newInstance(1);
+            case MAP:
+                return MapFragment.newInstance();
+            default:
+                throw new IllegalArgumentException("Wrong fragment type");
+        }
+    }
+
+
     @Override
     public void onListFragmentInteraction(Country item) {
         Toast.makeText(this, "Click item:" + item.getName() + " " + item.getRegion().getValue(), Toast.LENGTH_SHORT).show();
+        replaceFragment(FragmentType.MAP);
+
     }
 
     /**

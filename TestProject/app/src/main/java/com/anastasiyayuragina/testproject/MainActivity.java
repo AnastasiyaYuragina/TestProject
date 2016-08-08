@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,10 +38,6 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-//        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
-//        mViewPager.setAdapter(mSectionsPagerAdapter);
-
         replaceFragment(FragmentType.COUNTRY_LIST);
 
         getApplication();
@@ -51,11 +48,8 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         MAP
     }
     void replaceFragment(FragmentType type){
-
         Fragment fragment;
-
         FragmentManager manager = getSupportFragmentManager();
-
         fragment = manager.findFragmentByTag(type.name());
 
         if(fragment == null){
@@ -63,9 +57,11 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         }
 
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.container, fragment, type.name()).addToBackStack(null).commit();
-
-
+        if (type.equals(FragmentType.COUNTRY_LIST)) {
+            transaction.replace(R.id.container, fragment, type.name()).commit();
+        } else {
+            transaction.replace(R.id.container, fragment, type.name()).addToBackStack(null).commit();
+        }
     }
 
     private Fragment createFragment(FragmentType type) {
@@ -79,12 +75,10 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         }
     }
 
-
     @Override
     public void onListFragmentInteraction(Country item) {
         Toast.makeText(this, "Click item:" + item.getName() + " " + item.getRegion().getValue(), Toast.LENGTH_SHORT).show();
         replaceFragment(FragmentType.MAP);
-
     }
 
     /**
@@ -118,49 +112,6 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
-        }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-
-            Fragment fragment = null;
-            switch (position) {
-                case 0:
-                    fragment = CountryFragment.newInstance(position + 1);
-                    break;
-                case 1:
-                    fragment = PlaceholderFragment.newInstance(position + 1);
-                    break;
-            }
-
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-            }
-            return null;
         }
     }
 }

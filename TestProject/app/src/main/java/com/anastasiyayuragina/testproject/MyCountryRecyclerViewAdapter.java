@@ -6,8 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
+import com.anastasiyayuragina.testproject.screen.country_list.CountriesMvp;
+import com.anastasiyayuragina.testproject.screen.country_list.CountriesPresenter;
 import com.anastasiyayuragina.testproject.screen.country_list.CountryFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,10 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
 
     private final List<Country> mValues = new ArrayList<>();
     private final CountryFragment.OnListFragmentInteractionListener mListener;
-
-    public MyCountryRecyclerViewAdapter(CountryFragment.OnListFragmentInteractionListener listener) {
+    private CountriesMvp.Presenter presenter;
+    public MyCountryRecyclerViewAdapter(CountryFragment.OnListFragmentInteractionListener listener, CountriesPresenter presenter) {
         mListener = listener;
+        this.presenter = presenter;
     }
 
     public void addItems(List<Country> items) {
@@ -28,6 +30,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_country, parent, false);
+
         return new ViewHolder(view);
     }
 

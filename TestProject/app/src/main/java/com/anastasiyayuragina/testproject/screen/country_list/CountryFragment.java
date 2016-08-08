@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.anastasiyayuragina.testproject.EndlessRecyclerOnScrollListener;
 import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
+import com.anastasiyayuragina.testproject.MainActivity;
 import com.anastasiyayuragina.testproject.MyCountryRecyclerViewAdapter;
 import com.anastasiyayuragina.testproject.R;
 import java.util.List;
@@ -35,6 +37,7 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
     private OnListFragmentInteractionListener mListener;
     private MyCountryRecyclerViewAdapter adapter;
     private CountriesMvp.Presenter presenter;
+    private ProgressDialog progressDialog;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -64,6 +67,8 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_country_list, container, false);
+        final CountriesMvp.Model model = new CountriesModel();
+        presenter = new CountriesPresenter(model, this);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -75,15 +80,22 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter = new MyCountryRecyclerViewAdapter(mListener);
+            adapter = new MyCountryRecyclerViewAdapter(mListener, (CountriesPresenter) presenter);
             recyclerView.setAdapter(adapter);
-            final CountriesMvp.Model model = new CountriesModel();
-            presenter = new CountriesPresenter(model, this);
-            presenter.loadData();
+
+            progressDialog = new ProgressDialog(context);
+            if (!presenter.isDataLoaded()) {
+                progressDialog.setProgressStyle(R.layout.progress_bar_item);
+                progressDialog.show();
+                presenter.loadData();
+            }
 
             recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener((LinearLayoutManager) recyclerView.getLayoutManager()) {
                 @Override
                 public void onLoadMore(int current_page) {
+                    if (presenter.isDataLoaded()) {
+                        progressDialog.dismiss();
+                    }
                     presenter.loadData();
                 }
             });

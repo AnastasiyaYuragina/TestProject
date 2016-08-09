@@ -7,15 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
 import com.anastasiyayuragina.testproject.EndlessRecyclerOnScrollListener;
 import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
-import com.anastasiyayuragina.testproject.MainActivity;
 import com.anastasiyayuragina.testproject.MyCountryRecyclerViewAdapter;
 import com.anastasiyayuragina.testproject.R;
 import java.util.List;
@@ -80,7 +76,7 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter = new MyCountryRecyclerViewAdapter(mListener, (CountriesPresenter) presenter);
+            adapter = new MyCountryRecyclerViewAdapter(mListener);
             recyclerView.setAdapter(adapter);
 
             progressDialog = new ProgressDialog(context);
@@ -92,7 +88,7 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
 
             recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener((LinearLayoutManager) recyclerView.getLayoutManager()) {
                 @Override
-                public void onLoadMore(int current_page) {
+                public void onLoadMore() {
                     if (presenter.isDataLoaded()) {
                         progressDialog.dismiss();
                     }
@@ -126,9 +122,14 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
     }
 
     @Override
+    public void showLoadMore() {
+        adapter.setLoading(true);
+    }
+
+    @Override
     public void onDestroy() {
-        presenter.onDestroy();
         super.onDestroy();
+        presenter.onDestroy();
     }
 
     /**

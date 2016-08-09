@@ -16,36 +16,51 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
 
     private final List<Country> mValues = new ArrayList<>();
     private final CountryFragment.OnListFragmentInteractionListener mListener;
-    private CountriesMvp.Presenter presenter;
-    public MyCountryRecyclerViewAdapter(CountryFragment.OnListFragmentInteractionListener listener, CountriesPresenter presenter) {
+    private boolean loading;
+
+    public MyCountryRecyclerViewAdapter(CountryFragment.OnListFragmentInteractionListener listener) {
         mListener = listener;
-        this.presenter = presenter;
     }
 
     public void addItems(List<Country> items) {
         mValues.addAll(items);
+        loading = false;
         notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_country, parent, false);
+        View view;
+        if(viewType == 0){
+             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_country, parent, false);
+        }else if(viewType == 1){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar_item, parent, false);
+        }else {
+            throw new IllegalArgumentException("Wrong view type");
+        }
+
 
         return new ViewHolder(view);
     }
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+        if(position == mValues.size()){
+            return 1;
+        }
+        return 0;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        if(getItemViewType(position) == 1) {
+            return;
+        }
+
         Country viewModel = mValues.get(position);
         holder.mItem = viewModel;
         holder.mIdView.setText("Country: " + viewModel.getName());
         holder.mContentView.setText("Region: " + viewModel.getRegion().getValue());
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +75,16 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        int size = mValues.size();
+        if(loading){
+            return size + 1;
+        }
+        return size;
+    }
+
+    public void setLoading(boolean loading) {
+        this.loading = loading;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

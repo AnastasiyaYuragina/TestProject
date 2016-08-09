@@ -25,6 +25,7 @@ public class CountriesPresenter implements CountriesMvp.Presenter, CountriesMvp.
         if (item == null) {
             model.loadData(1, this);
         } else {
+            view.showLoadMore();
             int page = item.getPageInfo().getPage() + 1;
             if (page<= item.getPageInfo().getPages()){
                 dataLoaded = false;

@@ -16,6 +16,8 @@ public interface CountriesMvp {
     }
     interface View{
         void setData(List<Country> countryList);
+
+        void showLoadMore();
     }
     interface Model{
         interface OnDataLoaded{

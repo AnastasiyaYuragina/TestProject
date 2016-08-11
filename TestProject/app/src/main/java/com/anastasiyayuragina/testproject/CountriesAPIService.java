@@ -8,5 +8,5 @@ import retrofit2.http.QueryMap;
 
 public interface CountriesAPIService {
     @GET("country")
-    Call<Item> loadItem(@QueryMap Map<String, String> param);
+    Call<ItemCountry> loadItem(@QueryMap Map<String, String> param);
 }

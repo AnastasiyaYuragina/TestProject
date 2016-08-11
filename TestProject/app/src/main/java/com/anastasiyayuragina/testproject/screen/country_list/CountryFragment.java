@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.anastasiyayuragina.testproject.EndlessRecyclerOnScrollListener;
-import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
+import com.anastasiyayuragina.testproject.jsonCountriesClasses.Country;
 import com.anastasiyayuragina.testproject.MyCountryRecyclerViewAdapter;
 import com.anastasiyayuragina.testproject.R;
 import java.util.List;
@@ -142,6 +142,7 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Country item);

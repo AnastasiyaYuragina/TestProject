@@ -15,13 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.anastasiyayuragina.testproject.JsonCountriesClasses.Country;
+import com.anastasiyayuragina.testproject.jsonCountriesClasses.Country;
 import com.anastasiyayuragina.testproject.screen.country_list.CountryFragment;
 import com.anastasiyayuragina.testproject.screen.map.MapFragment;
+import com.anastasiyayuragina.testproject.screen.map.MapMvp;
+import com.anastasiyayuragina.testproject.screen.map.MapPresenter;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.OnMapReadyCallback;
 
 public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener {
     /**
@@ -132,8 +133,8 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
 //        }
 //    }
 
-    void showCountryMap(String country){
-        Fragment mapFragment = MapFragment.newInstance(country);
+    void showCountryMap(String countryName, String latitude, String longitude){
+        Fragment mapFragment = MapFragment.newInstance(countryName, latitude, longitude);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.container, mapFragment, FragmentType.MAP.name()).addToBackStack(null).commit();
     }
@@ -141,8 +142,8 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
     @Override
     public void onListFragmentInteraction(Country item) {
         Toast.makeText(this, "Click item:" + item.getName() + " " + item.getRegion().getValue(), Toast.LENGTH_SHORT).show();
-        showCountryMap(item.getName());
-        replaceFragment(FragmentType.MAP);
+        showCountryMap(item.getName(), item.getLatitude(), item.getLongitude());
+//        replaceFragment(FragmentType.MAP);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.anastasiyayuragina.testproject.JsonCountriesClasses;
+package com.anastasiyayuragina.testproject.jsonCountriesClasses;
 
 import java.util.HashMap;
 import java.util.Map;

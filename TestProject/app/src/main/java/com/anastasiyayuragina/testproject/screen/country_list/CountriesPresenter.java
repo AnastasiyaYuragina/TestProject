@@ -2,7 +2,7 @@ package com.anastasiyayuragina.testproject.screen.country_list;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
-import com.anastasiyayuragina.testproject.Item;
+import com.anastasiyayuragina.testproject.ItemCountry;
 
 /**
  * Created by anastasiyayuragina on 8/2/16.
@@ -12,7 +12,7 @@ public class CountriesPresenter implements CountriesMvp.Presenter, CountriesMvp.
     private static final String TAG = "MyLogs";
     private CountriesMvp.Model model;
     @Nullable CountriesMvp.View view;
-    private Item item = null;
+    private ItemCountry itemCountry = null;
     private boolean dataLoaded = false;
 
     public CountriesPresenter(CountriesMvp.Model model, CountriesMvp.View view) {
@@ -22,12 +22,12 @@ public class CountriesPresenter implements CountriesMvp.Presenter, CountriesMvp.
 
     @Override
     public void loadData() {
-        if (item == null) {
+        if (itemCountry == null) {
             model.loadData(1, this);
         } else {
             view.showLoadMore();
-            int page = item.getPageInfo().getPage() + 1;
-            if (page<= item.getPageInfo().getPages()){
+            int page = itemCountry.getPageInfo().getPage() + 1;
+            if (page <= itemCountry.getPageInfo().getPages()){
                 dataLoaded = false;
                 model.loadData(page, this);
                 Log.d(TAG, "loadData2: " + page);
@@ -41,11 +41,11 @@ public class CountriesPresenter implements CountriesMvp.Presenter, CountriesMvp.
     }
 
     @Override
-    public void onDataLoaded(Item item) {
-        this.item = item;
+    public void onDataLoaded(ItemCountry itemCountry) {
+        this.itemCountry = itemCountry;
 
         if(view != null){
-            view.setData(item.getCountryList());
+            view.setData(itemCountry.getCountryList());
             Log.d(TAG, "onDataLoaded: true");
             dataLoaded = true;
         }

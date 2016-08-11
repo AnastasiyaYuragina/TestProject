@@ -1,1 +1,1 @@
-include ':app', ':testjson', ':myapplication'
+include ':app'

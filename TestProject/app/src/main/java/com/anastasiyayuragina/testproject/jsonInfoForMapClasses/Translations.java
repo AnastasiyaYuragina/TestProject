@@ -35,7 +35,7 @@ public class Translations {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
+     *
      * @return
      *     The de
      */
@@ -45,7 +45,7 @@ public class Translations {
     }
 
     /**
-     * 
+     *
      * @param de
      *     The de
      */
@@ -55,7 +55,7 @@ public class Translations {
     }
 
     /**
-     * 
+     *
      * @return
      *     The es
      */
@@ -65,7 +65,7 @@ public class Translations {
     }
 
     /**
-     * 
+     *
      * @param es
      *     The es
      */
@@ -75,7 +75,7 @@ public class Translations {
     }
 
     /**
-     * 
+     *
      * @return
      *     The fr
      */
@@ -85,7 +85,7 @@ public class Translations {
     }
 
     /**
-     * 
+     *
      * @param fr
      *     The fr
      */
@@ -95,7 +95,7 @@ public class Translations {
     }
 
     /**
-     * 
+     *
      * @return
      *     The ja
      */
@@ -105,7 +105,7 @@ public class Translations {
     }
 
     /**
-     * 
+     *
      * @param ja
      *     The ja
      */
@@ -115,7 +115,7 @@ public class Translations {
     }
 
     /**
-     * 
+     *
      * @return
      *     The it
      */
@@ -125,7 +125,7 @@ public class Translations {
     }
 
     /**
-     * 
+     *
      * @param it
      *     The it
      */

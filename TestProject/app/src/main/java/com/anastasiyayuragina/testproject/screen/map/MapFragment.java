@@ -2,9 +2,12 @@ package com.anastasiyayuragina.testproject.screen.map;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anastasiyayuragina.testproject.ItemForMap;
 import com.anastasiyayuragina.testproject.R;
@@ -32,6 +35,7 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
     private String countryName;
     private double latitude;
     private double longitude;
+    private TextView textView;
 
     public static MapFragment newInstance(String countryName, String latitude, String longitude) {
         
@@ -55,7 +59,6 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
             latitude = Double.parseDouble(getArguments().getString(LANTITUDE));
             longitude = Double.parseDouble(getArguments().getString(LONGITUDE));
         }
-
     }
 
     @Override
@@ -64,6 +67,7 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
         MapMvp.ModelMap modelMap = new MapModel();
         mapView = (MapView) view.findViewById(R.id.map);
         presenterMap = new MapPresenter(modelMap, this);
+        textView = (TextView) view.findViewById(R.id.about_country);
 
         presenterMap.setCountryName(countryName);
         presenterMap.loadData();
@@ -93,21 +97,55 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
 
     @Override
     public void setMapMarker(final ItemForMap itemForMap) {
-        if (latitude == 0 || longitude == 0) {
-            latitude = itemForMap.getInfoForMap().getLatlng().get(0);
-            longitude = itemForMap.getInfoForMap().getLatlng().get(1);
-        }
+        if (itemForMap == null) {
+            Toast.makeText(mapView.getContext(), "Unknown coordinates", Toast.LENGTH_SHORT).show();
 
-        final StringBuilder builder = new StringBuilder();
-        builder.append(itemForMap.getInfoForMap().getCapital() + ", ").append(itemForMap.getInfoForMap().getName() + ", ")
-                .append(itemForMap.getInfoForMap().getRegion() + ", ").append(itemForMap.getInfoForMap().getSubregion());
-
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(latitude, longitude)).title(builder.toString()));
+        } else {
+            if (latitude == 0 || longitude == 0) {
+                latitude = itemForMap.getInfoForMap().getLatlng().get(0);
+                longitude = itemForMap.getInfoForMap().getLatlng().get(1);
             }
-        });
+
+            StringBuilder builderLang = new StringBuilder();
+            for (int i = 0; i < itemForMap.getInfoForMap().getLanguages().size(); i++) {
+
+                if (i == itemForMap.getInfoForMap().getLanguages().size()) {
+                    builderLang.append(itemForMap.getInfoForMap().getLanguages().get(i));
+                } else if (i >= 0 && i < itemForMap.getInfoForMap().getLanguages().size()) {
+                    builderLang.append(itemForMap.getInfoForMap().getLanguages().get(i) + ", ");
+                }
+
+            }
+
+            final StringBuilder builder = new StringBuilder();
+            builder.append(itemForMap.getInfoForMap().getName() + ", ").append(itemForMap.getInfoForMap().getRegion() + ", ")
+                    .append(itemForMap.getInfoForMap().getSubregion() + ", ")
+                    .append("population: " + itemForMap.getInfoForMap().getPopulation() + ", ")
+                    .append("area: " + itemForMap.getInfoForMap().getArea() + ", ").append("languages: " + builderLang.toString());
+
+            mapView.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(final GoogleMap googleMap) {
+                    googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
+
+                    googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(Marker marker) {
+                            marker.setTitle(itemForMap.getInfoForMap().getCapital());
+
+                            if (textView.getVisibility() == View.INVISIBLE) {
+                                textView.setVisibility(View.VISIBLE);
+                                textView.setText(builder.toString());
+                            } else {
+                                textView.setVisibility(View.INVISIBLE);
+                                textView.setText("");
+                            }
+
+                            return false;
+                        }
+                    });
+                }
+            });
+        }
     }
 }

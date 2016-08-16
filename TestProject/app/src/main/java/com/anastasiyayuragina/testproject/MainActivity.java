@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.anastasiyayuragina.testproject.jsonCountriesClasses.Country;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
      */
     private GoogleApiClient client;
     private FragmentManager manager;
+    private EditText comment;
 
     /**
      * The {@link PagerAdapter} that will provide
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        comment = (EditText) findViewById(R.id.editComment);
     }
 
     @Override
@@ -109,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         fragment = manager.findFragmentByTag(type.name());
 
         if (fragment == null) {
-//            fragment = createFragment(type);
             fragment = CountryFragment.newInstance(1);
         }
 
@@ -117,31 +119,16 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         if (type.equals(FragmentType.COUNTRY_LIST)) {
             transaction.replace(R.id.container, fragment, type.name()).commit();
         }
-//        else {
-//            transaction.replace(R.id.container, fragment, type.name()).addToBackStack(null).commit();
-//        }
     }
-
-//    private Fragment createFragment(FragmentType type) {
-//        switch (type) {
-//            case COUNTRY_LIST:
-//                return CountryFragment.newInstance(1);
-//            case MAP:
-//                return MapFragment.newInstance();
-//            default:
-//                throw new IllegalArgumentException("Wrong fragment type");
-//        }
-//    }
 
     void showCountryMap(String countryName, String latitude, String longitude){
         Fragment mapFragment = MapFragment.newInstance(countryName, latitude, longitude);
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.container, mapFragment, FragmentType.MAP.name()).addToBackStack(null).commit();
+        transaction.replace(R.id.container, mapFragment, FragmentType.MAP.name()).addToBackStack(comment.getText().toString()).commit();
     }
 
     @Override
     public void onListFragmentInteraction(Country item) {
-//        Toast.makeText(this, "Click item:" + item.getName() + " " + item.getRegion().getValue(), Toast.LENGTH_SHORT).show();
         showCountryMap(item.getName(), item.getLatitude(), item.getLongitude());
     }
 

@@ -2,36 +2,31 @@ package com.anastasiyayuragina.testproject.screen.map;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.anastasiyayuragina.testproject.ItemForMap;
 import com.anastasiyayuragina.testproject.R;
-import com.anastasiyayuragina.testproject.jsonCountriesClasses.Country;
-import com.fasterxml.jackson.databind.ser.std.AsArraySerializerBase;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.lang.reflect.Array;
+import java.util.Locale;
 
 /**
- * Created by anastasiyayuragina on 8/5/16.
+ * Created by anastasiya yuragina on 8/5/16.
+ *
  */
 public class MapFragment extends Fragment implements MapMvp.ViewMap{
     private static final String COUNTRY_NAME = "country_name";
-    private static final String LANTITUDE = "latitude";
+    private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
     private  MapView mapView;
-    private MapMvp.PresenterMap presenterMap;
     private String countryName;
     private double latitude;
     private double longitude;
@@ -42,7 +37,7 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
         Bundle args = new Bundle();
         MapFragment fragment = new MapFragment();
         args.putString(COUNTRY_NAME, countryName);
-        args.putString(LANTITUDE, latitude);
+        args.putString(LATITUDE, latitude);
         args.putString(LONGITUDE, longitude);
         fragment.setArguments(args);
         return fragment;
@@ -53,10 +48,10 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
         super.onCreate(savedInstanceState);
 
         countryName = getArguments().getString(COUNTRY_NAME);
-        if (getArguments().getString(LANTITUDE).isEmpty() || getArguments().getString(LONGITUDE).isEmpty()) {
+        if (getArguments().getString(LATITUDE) == null || getArguments().getString(LONGITUDE) == null) {
 
         } else {
-            latitude = Double.parseDouble(getArguments().getString(LANTITUDE));
+            latitude = Double.parseDouble(getArguments().getString(LATITUDE));
             longitude = Double.parseDouble(getArguments().getString(LONGITUDE));
         }
     }
@@ -65,6 +60,7 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.map_fragment, container, false);
         MapMvp.ModelMap modelMap = new MapModel();
+        MapMvp.PresenterMap presenterMap;
         mapView = (MapView) view.findViewById(R.id.map);
         presenterMap = new MapPresenter(modelMap, this);
         textView = (TextView) view.findViewById(R.id.about_country);
@@ -107,26 +103,32 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
             }
 
             StringBuilder builderLang = new StringBuilder();
+            Locale locale;
             for (int i = 0; i < itemForMap.getInfoForMap().getLanguages().size(); i++) {
 
-                if (i == itemForMap.getInfoForMap().getLanguages().size()) {
-                    builderLang.append(itemForMap.getInfoForMap().getLanguages().get(i));
-                } else if (i >= 0 && i < itemForMap.getInfoForMap().getLanguages().size()) {
-                    builderLang.append(itemForMap.getInfoForMap().getLanguages().get(i) + ", ");
+                if (i == 0) {
+                    locale = new Locale(itemForMap.getInfoForMap().getLanguages().get(i));
+                    builderLang.append(locale.getDisplayLanguage());
+                } else if (i <= itemForMap.getInfoForMap().getLanguages().size()) {
+                    locale = new Locale(itemForMap.getInfoForMap().getLanguages().get(i));
+                    builderLang.append(", ").append(locale.getDisplayLanguage());
                 }
-
             }
 
             final StringBuilder builder = new StringBuilder();
-            builder.append(itemForMap.getInfoForMap().getName() + ", ").append(itemForMap.getInfoForMap().getRegion() + ", ")
-                    .append(itemForMap.getInfoForMap().getSubregion() + ", ")
-                    .append("population: " + itemForMap.getInfoForMap().getPopulation() + ", ")
-                    .append("area: " + itemForMap.getInfoForMap().getArea() + ", ").append("languages: " + builderLang.toString());
+            builder.append(itemForMap.getInfoForMap().getName()).append(", ")
+                    .append(itemForMap.getInfoForMap().getRegion()).append(", ")
+                    .append(itemForMap.getInfoForMap().getSubregion()).append(", ")
+                    .append("population: ").append(itemForMap.getInfoForMap().getPopulation()).append(", ")
+                    .append("area: ").append(itemForMap.getInfoForMap().getArea()).append(", ")
+                    .append("languages: ").append(builderLang.toString());
 
             mapView.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(final GoogleMap googleMap) {
                     googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
+                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(4));
 
                     googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                         @Override

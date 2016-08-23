@@ -22,6 +22,7 @@ public class CountriesPresenter implements CountriesMvp.Presenter, CountriesMvp.
     @Nullable CountriesMvp.View view;
     private ItemCountry itemCountry = null;
     private boolean dataLoaded = false;
+    private Map<String, String> com = new ArrayMap<>();
 
     public CountriesPresenter(CountriesMvp.Model model, CountriesMvp.View view) {
         this.model = model;
@@ -53,7 +54,11 @@ public class CountriesPresenter implements CountriesMvp.Presenter, CountriesMvp.
         this.itemCountry = itemCountry;
 
         List<Country> country = itemCountry.getCountryList();
-        Map<String, String> com = new ArrayMap<>();
+
+        List<CountryComment> list = new Select().from(CountryComment.class).queryList();
+        for (CountryComment comment : list) {
+            Log.d(TAG, "onDataLoaded: " +comment.getId_country() + " : " + comment.getComment());
+        }
 
         for (int i = 0; i < country.size(); i++) {
             CountryComment comment = new Select(CountryComment_Table.comment).from(CountryComment.class).where(CountryComment_Table.id_country.is(country.get(i).getId())).querySingle();

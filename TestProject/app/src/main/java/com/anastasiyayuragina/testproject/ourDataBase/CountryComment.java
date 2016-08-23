@@ -14,9 +14,6 @@ public class CountryComment extends BaseModel {
 
     @Column
     @PrimaryKey
-    int id;
-
-    @Column
     String id_country;
 
     @Column

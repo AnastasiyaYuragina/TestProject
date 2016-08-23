@@ -6,7 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.anastasiyayuragina.testproject.jsonCountriesClasses.Country;
+import com.anastasiyayuragina.testproject.ourDataBase.CountryComment;
+import com.anastasiyayuragina.testproject.ourDataBase.CountryComment_Table;
 import com.anastasiyayuragina.testproject.screen.country_list.CountryFragment;
+import com.raizlabs.android.dbflow.sql.language.Condition;
+import com.raizlabs.android.dbflow.sql.language.Select;
+
+import java.sql.RowId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +36,12 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         if(viewType == 0){
-             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_country, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_country, parent, false);
         }else if(viewType == 1){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar_item, parent, false);
         }else {
             throw new IllegalArgumentException("Wrong view type");
         }
-
 
         return new ViewHolder(view);
     }
@@ -57,6 +62,14 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
 
         Country viewModel = mValues.get(position);
         holder.mItem = viewModel;
+
+        if (viewModel.getComment() == null) {
+
+        } else {
+            holder.mComment.setText("Comment: " + viewModel.getComment().toString());
+            notifyDataSetChanged();
+        }
+
         holder.mIdView.setText("Country: " + viewModel.getName());
         holder.mContentView.setText("Region: " + viewModel.getRegion().getValue());
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +102,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final TextView mComment;
         public Country mItem;
 
         public ViewHolder(View view) {
@@ -96,6 +110,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.county_name);
             mContentView = (TextView) view.findViewById(R.id.country_region);
+            mComment = (TextView) view.findViewById(R.id.show_comment);
         }
 
         @Override

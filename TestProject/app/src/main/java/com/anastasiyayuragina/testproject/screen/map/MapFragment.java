@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.anastasiyayuragina.testproject.ItemForMap;
 import com.anastasiyayuragina.testproject.R;
+import com.anastasiyayuragina.testproject.ourDataBase.CountryComment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -17,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Created by anastasiya yuragina on 8/5/16.
@@ -26,19 +29,24 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
     private static final String COUNTRY_NAME = "country_name";
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
+    private static final String ID_COUNTRY = "id_country";
     private  MapView mapView;
     private String countryName;
     private double latitude;
     private double longitude;
-    private TextView textView;
+    private String idCountry;
+    private TextView infoAboutCountry;
 
-    public static MapFragment newInstance(String countryName, String latitude, String longitude) {
+    private EditText comment;
+
+    public static MapFragment newInstance(String countryName, String latitude, String longitude, String id) {
         
         Bundle args = new Bundle();
         MapFragment fragment = new MapFragment();
         args.putString(COUNTRY_NAME, countryName);
         args.putString(LATITUDE, latitude);
         args.putString(LONGITUDE, longitude);
+        args.putString(ID_COUNTRY, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,9 +56,8 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
         super.onCreate(savedInstanceState);
 
         countryName = getArguments().getString(COUNTRY_NAME);
-        if (getArguments().getString(LATITUDE) == null || getArguments().getString(LONGITUDE) == null) {
-
-        } else {
+        idCountry = getArguments().getString(ID_COUNTRY);
+        if (!Objects.equals(getArguments().getString(LATITUDE), "") && !Objects.equals(getArguments().getString(LONGITUDE), "")) {
             latitude = Double.parseDouble(getArguments().getString(LATITUDE));
             longitude = Double.parseDouble(getArguments().getString(LONGITUDE));
         }
@@ -63,7 +70,9 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
         MapMvp.PresenterMap presenterMap;
         mapView = (MapView) view.findViewById(R.id.map);
         presenterMap = new MapPresenter(modelMap, this);
-        textView = (TextView) view.findViewById(R.id.about_country);
+        infoAboutCountry = (TextView) view.findViewById(R.id.about_country);
+
+        comment = (EditText) view.findViewById(R.id.editComment);
 
         presenterMap.setCountryName(countryName);
         presenterMap.loadData();
@@ -82,6 +91,10 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
     @Override
     public void onPause() {
         super.onPause();
+        CountryComment countryComment = new CountryComment();
+        countryComment.setId_country(idCountry);
+        countryComment.setComment(comment.getText().toString());
+        countryComment.save();
         mapView.onPause();
     }
 
@@ -135,12 +148,12 @@ public class MapFragment extends Fragment implements MapMvp.ViewMap{
                         public boolean onMarkerClick(Marker marker) {
                             marker.setTitle(itemForMap.getInfoForMap().getCapital());
 
-                            if (textView.getVisibility() == View.INVISIBLE) {
-                                textView.setVisibility(View.VISIBLE);
-                                textView.setText(builder.toString());
+                            if (infoAboutCountry.getVisibility() == View.INVISIBLE) {
+                                infoAboutCountry.setVisibility(View.VISIBLE);
+                                infoAboutCountry.setText(builder.toString());
                             } else {
-                                textView.setVisibility(View.INVISIBLE);
-                                textView.setText("");
+                                infoAboutCountry.setVisibility(View.INVISIBLE);
+                                infoAboutCountry.setText("");
                             }
 
                             return false;

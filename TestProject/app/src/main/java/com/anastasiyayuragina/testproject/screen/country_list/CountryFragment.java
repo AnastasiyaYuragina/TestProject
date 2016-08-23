@@ -58,6 +58,8 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+
     }
 
     @Override
@@ -125,7 +127,6 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
     public void showLoadMore() {
         adapter.setLoading(true);
     }
-
 
     @Override
     public void onDestroy() {

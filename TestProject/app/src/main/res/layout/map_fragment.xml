@@ -16,9 +16,7 @@
         android:visibility="invisible"
         android:textAlignment="center"
         android:layout_above="@+id/editComment"
-        android:background="#B7FFFFFF"
-        android:textSize="15sp"
-        android:textColor="@android:color/black" />
+        android:background="#B7FFFFFF" />
 
     <EditText
         android:layout_width="match_parent"

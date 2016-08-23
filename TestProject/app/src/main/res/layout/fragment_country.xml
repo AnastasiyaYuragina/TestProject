@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/radius"
+    app:cardCornerRadius="@dimen/text_size"
     android:layout_margin="@dimen/text_margin"
     android:background="@android:drawable/alert_light_frame">
 
@@ -18,7 +18,8 @@
             android:textColor="@android:color/black"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_size"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/country_region"
@@ -26,14 +27,13 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:layout_margin="@dimen/text_margin"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_size"
+            android:layout_weight="1"/>
 
-        <TextView
-            android:id="@+id/show_comment"
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size" />
+            android:layout_height="0dp"
+            android:hint="@string/enter_comment" />
 
     </LinearLayout>
 

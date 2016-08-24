@@ -15,12 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.anastasiyayuragina.testproject.jsonCountriesClasses.Country;
 import com.anastasiyayuragina.testproject.screen.country_list.CountryFragment;
 import com.anastasiyayuragina.testproject.screen.map.MapFragment;
-import com.anastasiyayuragina.testproject.screen.map.MapMvp;
-import com.anastasiyayuragina.testproject.screen.map.MapPresenter;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -32,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
      */
     private GoogleApiClient client;
     private FragmentManager manager;
-    private EditText comment;
 
     /**
      * The {@link PagerAdapter} that will provide
@@ -58,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-        comment = (EditText) findViewById(R.id.editComment);
     }
 
     @Override
@@ -121,15 +116,15 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         }
     }
 
-    void showCountryMap(String countryName, String latitude, String longitude){
-        Fragment mapFragment = MapFragment.newInstance(countryName, latitude, longitude);
+    void showCountryMap(String countryName, String latitude, String longitude, String id){
+        Fragment mapFragment = MapFragment.newInstance(countryName, latitude, longitude, id);
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.container, mapFragment, FragmentType.MAP.name()).addToBackStack(comment.getText().toString()).commit();
+        transaction.replace(R.id.container, mapFragment, FragmentType.MAP.name()).addToBackStack(null).commit();
     }
 
     @Override
     public void onListFragmentInteraction(Country item) {
-        showCountryMap(item.getName(), item.getLatitude(), item.getLongitude());
+        showCountryMap(item.getName(), item.getLatitude(), item.getLongitude(), item.getId());
     }
 
     /**

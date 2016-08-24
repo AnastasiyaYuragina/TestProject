@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Created by anastasiyayuragina on 8/10/16.
+ *
  */
 @JsonDeserialize(using = ItemForMapDeserializer.class)
 public class ItemForMap {

@@ -1,7 +1,6 @@
 package com.anastasiyayuragina.testproject.screen.country_list;
 
 import android.support.v4.util.ArrayMap;
-
 import com.anastasiyayuragina.testproject.CountriesAPIService;
 import com.anastasiyayuragina.testproject.ItemCountry;
 import com.anastasiyayuragina.testproject.MySingleton;
@@ -11,7 +10,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by anastasiyayuragina on 8/2/16.
+ * Created by anastasiya yuragina on 8/2/16.
+ *
  */
 public class CountriesModel implements CountriesMvp.Model {
 

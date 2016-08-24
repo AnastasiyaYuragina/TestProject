@@ -7,7 +7,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.List;
 
 /**
- * Created by anastasiyayuragina on 7/27/16.
+ * Created by anastasiya yuragina on 7/27/16.
+ *
  */
 @JsonDeserialize (using = ItemCountryDeserializer.class)
 public class ItemCountry {

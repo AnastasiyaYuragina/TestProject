@@ -1,7 +1,5 @@
 package com.anastasiyayuragina.testproject.screen.map;
 
-import android.util.Log;
-
 import com.anastasiyayuragina.testproject.ItemForMap;
 import com.anastasiyayuragina.testproject.MapsAPIService;
 import com.anastasiyayuragina.testproject.MySingleton;
@@ -11,10 +9,9 @@ import retrofit2.Response;
 
 /**
  * Created by anastasiyayuragina on 8/10/16.
+ *
  */
 public class MapModel implements MapMvp.ModelMap {
-
-    private String TAG = "Mylogs";
 
     @Override
     public void loadData(String countryName, final OnDataLoadedMap listener) {
@@ -32,7 +29,7 @@ public class MapModel implements MapMvp.ModelMap {
 
             @Override
             public void onFailure(Call<ItemForMap> call, Throwable t) {
-                Log.d(TAG, "onFailure: ");
+
             }
         });
     }

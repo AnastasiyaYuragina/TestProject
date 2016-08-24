@@ -32,7 +32,7 @@ public class Translations {
     @JsonProperty("it")
     private String it;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      *

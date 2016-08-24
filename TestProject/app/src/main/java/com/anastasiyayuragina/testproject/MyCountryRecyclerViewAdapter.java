@@ -56,6 +56,12 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
         }
 
         Country viewModel = mValues.get(position);
+
+
+        if (viewModel.getComment() != null && !viewModel.getComment().isEmpty()) {
+            holder.mComment.setText("Comment: " + viewModel.getComment().toString());
+        }
+
         holder.mItem = viewModel;
         holder.mIdView.setText("Country: " + viewModel.getName());
         holder.mContentView.setText("Region: " + viewModel.getRegion().getValue());
@@ -90,12 +96,14 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
         public final TextView mIdView;
         public final TextView mContentView;
         public Country mItem;
+        public final TextView mComment;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.county_name);
             mContentView = (TextView) view.findViewById(R.id.country_region);
+            mComment = (TextView) view.findViewById(R.id.show_comment);
         }
 
         @Override

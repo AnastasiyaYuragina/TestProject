@@ -44,7 +44,7 @@ public class InfoForMap {
     @JsonProperty("capital")
     private String capital;
     @JsonProperty("altSpellings")
-    private List<String> altSpellings = new ArrayList<String>();
+    private List<String> altSpellings = new ArrayList<>();
     @JsonProperty("relevance")
     private String relevance;
     @JsonProperty("region")
@@ -56,7 +56,7 @@ public class InfoForMap {
     @JsonProperty("population")
     private Integer population;
     @JsonProperty("latlng")
-    private List<Double> latlng = new ArrayList<Double>();
+    private List<Double> latlng = new ArrayList<>();
     @JsonProperty("demonym")
     private String demonym;
     @JsonProperty("area")
@@ -66,23 +66,23 @@ public class InfoForMap {
     @JsonProperty("timezones")
     private Object timezones;
     @JsonProperty("borders")
-    private List<Object> borders = new ArrayList<Object>();
+    private List<Object> borders = new ArrayList<>();
     @JsonProperty("nativeName")
     private String nativeName;
     @JsonProperty("callingCodes")
-    private List<String> callingCodes = new ArrayList<String>();
+    private List<String> callingCodes = new ArrayList<>();
     @JsonProperty("topLevelDomain")
-    private List<String> topLevelDomain = new ArrayList<String>();
+    private List<String> topLevelDomain = new ArrayList<>();
     @JsonProperty("alpha2Code")
     private String alpha2Code;
     @JsonProperty("alpha3Code")
     private String alpha3Code;
     @JsonProperty("currencies")
-    private List<String> currencies = new ArrayList<String>();
+    private List<String> currencies = new ArrayList<>();
     @JsonProperty("languages")
-    private List<String> languages = new ArrayList<String>();
+    private List<String> languages = new ArrayList<>();
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

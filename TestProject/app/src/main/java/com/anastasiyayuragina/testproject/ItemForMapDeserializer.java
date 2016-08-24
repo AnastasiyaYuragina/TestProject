@@ -2,7 +2,6 @@ package com.anastasiyayuragina.testproject;
 
 import com.anastasiyayuragina.testproject.jsonInfoForMapClasses.InfoForMap;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -13,11 +12,12 @@ import java.io.IOException;
 
 /**
  * Created by anastasiyayuragina on 8/11/16.
+ *
  */
 public class ItemForMapDeserializer extends JsonDeserializer<ItemForMap> {
 
     @Override
-    public ItemForMap deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public ItemForMap deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
 
         ItemForMap itemForMap = new ItemForMap();
         ObjectMapper mapper = new ObjectMapper();

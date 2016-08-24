@@ -2,7 +2,6 @@ package com.anastasiyayuragina.testproject.jsonCountriesClasses;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,9 +27,8 @@ public class PageInfo {
     private String perPage;
     @JsonProperty("total")
     private Integer total;
-    private Country country;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

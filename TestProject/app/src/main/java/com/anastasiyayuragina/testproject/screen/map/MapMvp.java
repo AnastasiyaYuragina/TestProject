@@ -1,10 +1,10 @@
 package com.anastasiyayuragina.testproject.screen.map;
 
 import com.anastasiyayuragina.testproject.ItemForMap;
-import com.anastasiyayuragina.testproject.jsonInfoForMapClasses.InfoForMap;
 
 /**
  * Created by anastasiyayuragina on 8/10/16.
+ *
  */
 public interface MapMvp {
     interface PresenterMap {

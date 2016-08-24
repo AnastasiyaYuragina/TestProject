@@ -26,7 +26,6 @@ public class CountryFragment extends Fragment implements CountriesMvp.View {
 
     // TODO: Customize parameter argument names
     private static final java.lang.String ARG_COLUMN_COUNT = "column-count";
-    private static final String TAG = "MyLogs";
 
     // TODO: Customize parameters
     private int mColumnCount = 1;

@@ -5,6 +5,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Created by anastasiyayuragina on 8/1/16.
+ *
  */
 public class MySingleton {
     private static MySingleton instance;

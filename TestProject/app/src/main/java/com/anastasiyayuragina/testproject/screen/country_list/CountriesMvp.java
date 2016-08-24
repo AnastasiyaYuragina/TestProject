@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by anastasiyayuragina on 8/2/16.
+ *
  */
 public interface CountriesMvp {
     interface Presenter{

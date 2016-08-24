@@ -4,6 +4,7 @@ import com.anastasiyayuragina.testproject.ItemForMap;
 
 /**
  * Created by anastasiyayuragina on 8/10/16.
+ *
  */
 public class MapPresenter implements MapMvp.PresenterMap, MapMvp.ModelMap.OnDataLoadedMap {
     private MapMvp.ModelMap modelMap;
